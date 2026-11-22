@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>904 Puzzel</title>
+<style>
+:root{--bg:#ece6d8;--bg2:#fbf8f1;--fg:#222;--board:#e2ddd0;--line:#c4bdac;--btn:#3b2a7a;--btnfg:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14121b;--bg2:#2a2638;--fg:#eee;--board:#262233;--line:#3d3850;--btn:#8a73e0;--btnfg:#111}}
+:root[data-theme="dark"]{--bg:#14121b;--bg2:#2a2638;--fg:#eee;--board:#2c2938;--line:#403c52;--btn:#8a73e0;--btnfg:#111}
+html,body{margin:0;background:radial-gradient(circle at 50% 0%,var(--bg2),var(--bg) 70%) fixed;color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:12px}
+h1{font-size:1.15rem;margin:4px 0}
+p{margin:2px 0 8px;font-size:.85rem;opacity:.8}
+#s{width:100%;height:calc(100dvh - 340px);min-height:300px;display:block;margin:0 auto;touch-action:none;user-select:none;-webkit-user-select:none}
+.p{cursor:grab;filter:url(#sd)}
+.bar{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+textarea{width:100%;box-sizing:border-box;margin-top:8px;background:var(--board);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px;font:11px/1.3 ui-monospace,monospace}
+button{background:linear-gradient(var(--btn),var(--btn));color:var(--btnfg);border:0;border-radius:12px;padding:11px 16px;font-size:.95rem;font-weight:600;box-shadow:0 3px 0 rgba(0,0,0,.28),0 6px 10px rgba(0,0,0,.15)}button:disabled{opacity:.4;box-shadow:none}button:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.28)}h1{letter-spacing:.02em}
+#st{margin-left:auto;font-weight:600}
+.tabs{display:flex;gap:8px;margin:6px 0 8px}.tabs button{flex:1;opacity:.55}.tabs .on{opacity:1}
+#msg{min-height:1.3em;margin-top:8px;font-size:.9rem}
+details{background:var(--board);border-radius:10px;margin:6px 0;padding:10px}
+summary{display:flex;align-items:center;gap:6px;cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+.dot{width:18px;height:18px;border-radius:50%;border:2px solid #151515;display:inline-block;vertical-align:middle;box-sizing:border-box}
+.sh{flex:none;margin:0 3px}.cnt{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}.done .cnt{color:#2a9d3f}
+.mini{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}.mini div{position:relative}
+.mini button{position:absolute;top:-6px;right:-6px;padding:0;width:22px;height:22px;border-radius:50%;font-size:.8rem;line-height:1}
+</style></head><body><main>
+<header style="text-align:center;margin-bottom:4px"><h1 style="font-size:2.3rem;margin:2px 0 0;line-height:1.1;font-weight:800">904 Puzzel</h1><small style="display:block;opacity:.7">13 stukken, 904 oplossingen. Vind ze allemaal.</small></header>
+<nav class="tabs"><button id="t1" class="on">Spel</button><button id="t2">Index</button></nav>
+<div id="game"><p>Sleep een stuk uit de rand naar het raster. Tik op een stuk om het 90° te draaien.</p>
+<svg id="s"><defs><filter id="sd" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-color="#000" flood-opacity=".4"/></filter><linearGradient id="hl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".26"/></linearGradient><pattern id="tx" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r=".8" fill="#fff" opacity=".14"/><circle cx="3.8" cy="3.6" r=".8" fill="#000" opacity=".1"/></pattern><linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a45c4"/><stop offset="1" stop-color="#34206b"/></linearGradient><linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".4" stop-color="#fff" stop-opacity=".14"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".7"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient><linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient><linearGradient id="cl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity=".09"/></linearGradient></defs><rect width="472" height="472" rx="18" fill="rgba(128,128,128,.13)"/><rect id="fr0" fill="#1c0e3f" rx="12"/><rect id="fr" fill="url(#fg)" rx="12" filter="url(#sd)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><rect id="bd" fill="var(--board)" rx="6"/><g id="gr"></g><g id="pv"></g><g id="pl"></g><g id="ov" pointer-events="none"></g></svg>
+<div class="bar"><button id="sh">Opnieuw</button><button id="un">↩ Terug</button><span id="st"></span></div>
+<div id="msg"></div></div><div id="idx" hidden></div></main>
+<script>
+const S=40,N=8,T=0.5,R=76,W=N*S+2*R,H=W,BX=R,BY=R,NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id),svg=$('s'),pv=$('pv'),pl=$('pl');
+svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+const norm=c=>{const r=Math.min(...c.map(a=>a[0])),q=Math.min(...c.map(a=>a[1]));return c.map(a=>[a[0]-r,a[1]-q])};
+const rot=c=>norm(c.map(([r,q])=>[q,-r]));
+const dim=c=>[Math.max(...c.map(a=>a[1]))+1,Math.max(...c.map(a=>a[0]))+1];
+const defs=[
+["#9a9a9a",[[0,0],[0,1],[0,2],[1,0],[2,0]]],
+["#b5232e",[[0,3],[0,4],[1,3],[1,4]]],
+["#1bb6e0",[[0,5],[0,6],[0,7],[1,5]]],
+["#e8837f",[[1,6],[1,7],[2,4],[2,5],[2,6]]],
+["#f08a2b",[[1,1],[1,2],[2,1],[3,0],[3,1]]],
+["#12a31f",[[2,2],[2,3],[3,2],[3,3],[4,2],[4,3]]],
+["#2a6fb0",[[2,7],[3,5],[3,6],[3,7],[4,6]]],
+["#f2b3cf",[[3,4],[4,4],[5,4],[6,4],[5,3]]],
+["#f3efdf",[[4,5],[4,7],[5,5],[5,6],[5,7],[6,5],[6,7]]],
+["#c9e61c",[[4,0],[4,1],[5,0],[6,0],[7,0]]],
+["#6e2b33",[[5,1],[5,2],[6,1],[7,1],[7,2]]],
+["#5b34b0",[[6,2],[6,3],[7,3],[7,4]]],
+["#c8702a",[[6,6],[7,5],[7,6],[7,7]]]];
+const P=defs.map(([color,abs],i)=>({id:i,color,sol:norm(abs),sy:Math.min(...abs.map(a=>a[0])),sx:Math.min(...abs.map(a=>a[1])),cells:norm(abs),x:0,y:0,hx:0,hy:0,k:T,placed:false,gx:0,gy:0,g:el('g',{class:'p','data-id':i})}));
+const mv=p=>{const want=p.placed?0:1;
+ if(p.st!==want){draw(p);if(want===0)p.g.style.filter='none';else if(!(d&&d.p===p&&d.moved))p.g.style.filter='';return}
+ p.g.setAttribute('transform',`translate(${p.x},${p.y}) scale(${p.k})`)};
+const size=p=>{const [w,h]=dim(p.cells);return[w*S*p.k,h*S*p.k]};
+const shade=(h,f)=>{const n=parseInt(h.slice(1),16);return '#'+[16,8,0].map(i=>Math.round(((n>>i)&255)*f).toString(16).padStart(2,'0')).join('')};
+const DEP=6;
+function draw(p){
+ p.g.textContent='';const k=new Set(p.cells.map(a=>a.join())),[w,h]=dim(p.cells),dk=shade(p.color,.55),cid='cp'+p.id;
+ const cp=el('clipPath',{id:cid});p.cells.forEach(([r,c])=>cp.append(el('rect',{x:c*S,y:r*S,width:S,height:S})));p.g.append(cp);
+ const ln=(x1,y1,x2,y2,col,wd)=>p.g.append(el('line',{x1,y1,x2,y2,stroke:col,'stroke-width':wd,'stroke-linecap':'round'}));
+ const has=(r,c)=>k.has(r+','+c);
+ const edges=dy=>p.cells.forEach(([r,c])=>{const x=c*S,y=r*S+dy;
+  if(!has(r-1,c))ln(x,y,x+S,y,'#151515',3.5);
+  if(!has(r+1,c))ln(x,y+S,x+S,y+S,'#151515',3.5);
+  if(!has(r,c-1))ln(x,y,x,y+S,'#151515',3.5);
+  if(!has(r,c+1))ln(x+S,y,x+S,y+S,'#151515',3.5);});
+ const dep=p.placed?0:DEP;p.st=p.placed?0:1;
+ if(dep)edges(dep);
+ if(dep)p.cells.forEach(([r,c])=>{const x=c*S,y=r*S;
+  if(!has(r+1,c)){if(!has(r,c-1))ln(x,y+S,x,y+S+DEP,'#151515',3.5);if(!has(r,c+1))ln(x+S,y+S,x+S,y+S+DEP,'#151515',3.5)}});
+ for(let q=dep-1;q>=1;q--)p.cells.forEach(([r,c])=>p.g.append(el('rect',{x:c*S,y:r*S+q,width:S,height:S,fill:dk,stroke:dk})));
+ p.cells.forEach(([r,c])=>p.g.append(el('rect',{x:c*S,y:r*S,width:S,height:S,fill:p.color,stroke:p.color})));
+ p.g.append(el('rect',{x:0,y:0,width:w*S,height:h*S,fill:'url(#gs)','clip-path':`url(#${cid})`}));
+ edges(0);
+ p.cells.forEach(([r,c])=>{const x=c*S,y=r*S;
+  if(!has(r-1,c))ln(x+(has(r,c-1)?0:5),y+4.5,x+S-(has(r,c+1)?0:5),y+4.5,'#fff',2.2);
+  if(!has(r,c-1))ln(x+4.5,y+(has(r-1,c)?0:5),x+4.5,y+S-(has(r+1,c)?0:5),'#fff',2.2);});
+ p.g.lastChild&&p.g.querySelectorAll('line[stroke="#fff"]').forEach(l=>l.setAttribute('opacity','.4'));
+ mv(p);
+}
+const TH=R-10,SL=(()=>{
+ const sl=[],m=TH/2,L=N*S,t=i=>({h:1,cx:(i+.5)*W/5,cy:m}),b=i=>({h:1,cx:(i+.5)*W/4,cy:H-R+10+m}),l=i=>({h:0,cx:m,cy:BY+(i+.5)*L/2}),r=i=>({h:0,cx:W-R+10+m,cy:BY+(i+.5)*L/2});
+ const order=[t(0),t(1),t(3),t(4),l(0),r(0),l(1),r(1),b(0),b(1),b(2),b(3)],o={};
+ o[8]=t(2);let k=0;for(let i=0;i<13;i++)if(i!==8)o[i]=order[k++];
+ return o})();
+function build(){
+ const f0=$('fr0');f0.setAttribute('x',BX-8);f0.setAttribute('y',BY-4);f0.setAttribute('width',N*S+16);f0.setAttribute('height',N*S+16);
+ const f=$('fr');f.setAttribute('x',BX-8);f.setAttribute('y',BY-8);f.setAttribute('width',N*S+16);f.setAttribute('height',N*S+16);
+ const b=$('bd');b.setAttribute('x',BX-4);b.setAttribute('y',BY-4);b.setAttribute('width',N*S+8);b.setAttribute('height',N*S+8);
+ const gr=$('gr');for(let r=0;r<N;r++)for(let c=0;c<N;c++)gr.append(el('rect',{x:BX+c*S,y:BY+r*S,width:S,height:S,fill:'url(#cl)',stroke:'var(--line)','stroke-width':1}));gr.append(el('rect',{x:BX,y:BY,width:N*S,height:20,fill:'url(#gt)'}),el('rect',{x:BX,y:BY,width:18,height:N*S,fill:'url(#gl)'}),el('rect',{x:BX,y:BY+N*S-3,width:N*S,height:3,fill:'#fff',opacity:.3}),el('rect',{x:BX+N*S-3,y:BY,width:3,height:N*S,fill:'#fff',opacity:.3}),el('rect',{x:BX,y:BY,width:N*S,height:N*S,fill:'none',stroke:'rgba(0,0,0,.6)','stroke-width':2}));
+}
+function shuffle(){
+ hist=[];
+ P.forEach(p=>{p.placed=false;p.k=T;const sl=SL[p.id];let c=norm(p.sol);const ok=[];
+  for(let i=0;i<4;i++){const [w,h]=dim(c);if((sl.h?h:w)<=3)ok.push(c);c=rot(c)}
+  p.cells=ok[Math.floor(Math.random()*ok.length)];p.cx=sl.cx;p.cy=sl.cy;draw(p);home(p);mv(p);pl.append(p.g)});
+ nosave=false;upd();
+}
+function solve(){
+ nosave=true;
+ P.forEach(p=>{p.cells=norm(p.sol);p.k=1;draw(p);place(p,p.sx,p.sy);mv(p);pl.append(p.g)});upd();
+}
+const place=(p,gx,gy)=>{p.gx=gx;p.gy=gy;p.x=BX+gx*S;p.y=BY+gy*S;p.k=1;p.placed=true};
+const occ=ex=>{const s=new Set();P.forEach(q=>{if(q.placed&&q!==ex)q.cells.forEach(([r,c])=>s.add((r+q.gy)+','+(c+q.gx)))});return s};
+const fits=(p,gx,gy,s)=>p.cells.every(([r,c])=>{const a=r+gy,b=c+gx;return a>=0&&b>=0&&a<N&&b<N&&!s.has(a+','+b)});
+function snap(p){
+ const x0=Math.round((p.x-BX)/S),y0=Math.round((p.y-BY)/S),s=occ(p);
+ for(const [dx,dy] of [[0,0],[1,0],[-1,0],[0,1],[0,-1]])if(fits(p,x0+dx,y0+dy,s))return[x0+dx,y0+dy];
+ return null;
+}
+function nearBoard(p){const [w,h]=size(p);return p.x<BX+N*S&&p.x+w>BX&&p.y<BY+N*S&&p.y+h>BY}
+function upd(){
+ const n=P.filter(p=>p.placed).length,done=n===P.length;
+ $('st').textContent=done?'Opgelost! 🎉':n+' / '+P.length+' geplaatst';
+ if(done)save();else $('msg').textContent='';
+ $('un').disabled=!hist.length;
+}
+let d=null,hist=[];
+const snapshot=()=>JSON.stringify(P.map(p=>({id:p.id,cells:p.cells,placed:p.placed,gx:p.gx,gy:p.gy,x:p.x,y:p.y,k:p.k})));
+function undo(){
+ const t=hist.pop();if(!t)return;
+ JSON.parse(t).forEach(o=>{const p=P[o.id];Object.assign(p,{cells:o.cells,placed:o.placed,gx:o.gx,gy:o.gy,x:o.x,y:o.y,k:o.k});
+  p.st=undefined;draw(p);p.g.style.filter=p.placed?'none':'';mv(p)});
+ upd();
+}
+const pt=e=>{const q=svg.createSVGPoint();q.x=e.clientX;q.y=e.clientY;return q.matrixTransform(svg.getScreenCTM().inverse())};
+svg.addEventListener('pointerdown',e=>{
+ const g=e.target.closest('g.p');if(!g)return;
+ const p=P[+g.dataset.id],q=pt(e);
+ d={p,snap:snapshot(),sx:q.x,sy:q.y,lq:q,moved:false,was:p.placed,ox:0,oy:0};
+ p.placed=false;pl.append(g);svg.setPointerCapture(e.pointerId);upd();
+});
+svg.addEventListener('pointermove',e=>{
+ if(!d)return;const q=pt(e),p=d.p;d.lq=q;
+ if(!d.moved){
+  if(Math.hypot(q.x-d.sx,q.y-d.sy)<=5)return;
+  d.moved=true;d.ox=(d.sx-p.x)/p.k;d.oy=(d.sy-p.y)/p.k; p.k=1;p.g.style.filter='drop-shadow(0 9px 6px rgba(0,0,0,.5))';
+ }
+ p.x=q.x-d.ox;p.y=q.y-d.oy;mv(p);
+ pv.textContent='';
+ if(nearBoard(p)){const s=snap(p);
+  if(s)p.cells.forEach(([r,c])=>pv.append(el('rect',{x:BX+(c+s[0])*S,y:BY+(r+s[1])*S,width:S,height:S,fill:'#3c3',opacity:.35})));}
+});
+function home(p){p.k=T;const [w,h]=size(p);p.x=p.cx-w/2;p.y=p.cy-h/2}
+function end(){
+ if(!d)return;const p=d.p;pv.textContent='';
+ if(!d.moved){
+  const [w,h]=size(p),cx=p.x+w/2,cy=p.y+h/2;
+  p.cells=rot(p.cells);const [w2,h2]=size(p);
+  p.x=cx-w2/2;p.y=cy-h2/2;draw(p);if(!d.was){p.x=Math.max(0,Math.min(W-w2,p.x));p.y=Math.max(0,Math.min(H-h2,p.y))}
+  if(d.was){const s=snap(p);if(s)place(p,s[0],s[1]);else home(p)}
+ }else{
+  const s=nearBoard(p)?snap(p):null;
+  if(s)place(p,s[0],s[1]);
+  else if(nearBoard(p))home(p);
+  else home(p);
+ }
+ p.g.style.filter=p.placed?'none':'';mv(p);if(snapshot()!==d.snap){hist.push(d.snap);if(hist.length>300)hist.shift()}d=null;upd();
+}
+svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+
+const TOT={"02":7,"03":1,"04":2,"06":8,"07":4,"0a":3,"0b":2,"0c":12,"23":4,"24":1,"26":11,"27":7,"29":2,"2a":2,"2b":4,"2c":9,"36":19,"37":22,"39":4,"3a":17,"3b":46,"3c":79,"46":4,"47":15,"49":2,"4a":5,"4b":2,"4c":10,"67":60,"69":5,"6a":48,"6b":47,"6c":204,"79":7,"7a":9,"7b":3,"7c":91,"9a":4,"9b":1,"9c":8,"ab":12,"ac":39,"bc":62};
+const TOTAL=904,KEY='puzzel13-v1',CH='0123456789abc',HID='8';
+let found=[],nosave=false,openSet=new Set();
+try{found=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(found))}catch(e){}};
+const rotg=g=>{const n=Array.from({length:N},()=>Array(N));for(let r=0;r<N;r++)for(let c=0;c<N;c++)n[c][N-1-r]=g[r][c];return n};
+const gkey=g=>g.map(r=>r.join('')).join('');
+function canon(g){let m=null;for(let i=0;i<4;i++){const k=gkey(g);if(m===null||k<m)m=k;g=rotg(g)}return m}
+function catOf(k){
+ const cs=[];for(let i=0;i<64;i++)if(k[i]===HID)cs.push(i);
+ const rs=cs.map(i=>i>>3),qs=cs.map(i=>i&7),out=[];
+ for(let r=Math.min(...rs);r<=Math.max(...rs);r++)for(let c=Math.min(...qs);c<=Math.max(...qs);c++)if(k[r*8+c]!==HID)out.push(k[r*8+c]);
+ return out.sort().join('');
+}
+const sh=id=>{const cs=norm(defs[id][1]),[w,h]=dim(cs),col=defs[id][0],k=new Set(cs.map(a=>a.join()));let t=`<svg class="sh" width="${w*8+2}" height="${h*8+2}" viewBox="-.1 -.1 ${w+.2} ${h+.2}">`;
+ cs.forEach(([r,c])=>t+=`<rect x="${c}" y="${r}" width="1" height="1" fill="${col}" stroke="${col}" stroke-width=".02"/>`);
+ cs.forEach(([r,c])=>{[[r-1,c,c,r,c+1,r],[r+1,c,c,r+1,c+1,r+1],[r,c-1,c,r,c,r+1],[r,c+1,c+1,r,c+1,r+1]].forEach(([a,b,x1,y1,x2,y2])=>{if(!k.has(a+','+b))t+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#151515" stroke-width=".14" stroke-linecap="round"/>`})});return t+'</svg>'};
+const dots=c=>[...c].map(ch=>sh(parseInt(ch,16))).join('');
+function mini(k){
+ let t='<svg width="96" height="96" viewBox="0 0 8 8"><rect width="8" height="8" fill="#151515"/>';
+ for(let i=0;i<64;i++)t+=`<rect x="${(i&7)+.04}" y="${(i>>3)+.04}" width=".92" height=".92" fill="${defs[parseInt(k[i],16)][0]}"/>`;
+ for(let i=0;i<64;i++){const x=i&7,y=i>>3;
+  if(x<7&&k[i]===k[i+1])t+=`<rect x="${x+.9}" y="${y+.04}" width=".2" height=".92" fill="${defs[parseInt(k[i],16)][0]}"/>`;
+  if(y<7&&k[i]===k[i+8])t+=`<rect x="${x+.04}" y="${y+.9}" width=".92" height=".2" fill="${defs[parseInt(k[i],16)][0]}"/>`;}
+ return t+'</svg>';
+}
+function save(){
+ if(nosave){$('msg').textContent='Dit is de voorbeeldoplossing en telt niet mee.';return}
+ const g=Array.from({length:N},()=>Array(N).fill('?'));
+ P.forEach(p=>p.cells.forEach(([r,c])=>g[r+p.gy][c+p.gx]=CH[p.id]));
+ const k=canon(g),c=catOf(k),m=$('msg');
+ if(found.includes(k)){m.innerHTML=`Die oplossing had je al gevonden in categorie ${dots(c)}`;return}
+ found.push(k);persist();openSet.add(c);tabLabel();
+ autoSave().then(ok=>{if(ok===true)m.innerHTML+=' Opgeslagen in je bestand.';else if(ok===false)m.innerHTML+=' Bestand niet bijgewerkt: kies in Index opnieuw je opslaglocatie.'});
+ const n=found.filter(f=>catOf(f)===c).length;
+ m.innerHTML=`Nieuwe oplossing! Opgeslagen in categorie ${dots(c)} (${n} van ${TOT[c]}). Zie Index.`;
+}
+function tabLabel(){$('t2').textContent=`Index (${found.length}/${TOTAL})`}
+function renderIdx(){
+ const by={};found.forEach(k=>{const c=catOf(k);(by[c]=by[c]||[]).push(k)});
+ $('idx').innerHTML=`<p>Een categorie is het paar stukken dat in de twee inhammen van de witte H past. Je hebt <b>${found.length}</b> van de ${TOTAL} oplossingen gevonden. Gedraaide versies tellen als één oplossing.</p><div class="bar"><button data-act="exp">Exporteren</button><button data-act="imp">Importeren</button></div><div id="io" hidden><textarea id="ta" rows="4" spellcheck="false"></textarea><div class="bar"><button data-act="go" id="go" hidden>Importeer</button></div></div><div class="bar">${FSA?'<button data-act="loc">Opslaglocatie kiezen</button>':'<button data-act="dl">Automatisch downloaden: '+(dlMode?'aan':'uit')+'</button>'}</div><p id="locs"></p><p id="ion"></p>`+
+ Object.keys(TOT).sort().map(c=>{const f=by[c]||[];
+  return `<details data-c="${c}" class="${f.length>=TOT[c]?'done':''}"${openSet.has(c)?' open':''}><summary>${sh(8)}<b>+</b>${dots(c)}<span class="cnt">${f.length} / ${TOT[c]}</span></summary><div class="mini">${f.map(k=>`<div>${mini(k)}<button data-del="${k}">×</button></div>`).join('')||'<small>Nog niets gevonden</small>'}</div></details>`}).join('');locStatus();
+}
+$('idx').addEventListener('toggle',e=>{const c=e.target.dataset&&e.target.dataset.c;if(c){e.target.open?openSet.add(c):openSet.delete(c)}},true);
+$('idx').addEventListener('click',e=>{const k=e.target.dataset&&e.target.dataset.del;if(!k)return;found=found.filter(f=>f!==k);persist();tabLabel();renderIdx();autoSave()});
+function validKey(k){
+ if(typeof k!=='string'||k.length!==64||/[^0-9abc]/.test(k))return null;
+ for(let i=0;i<13;i++)if(k.split(CH[i]).length-1!==defs[i][1].length)return null;
+ const g=[];for(let r=0;r<8;r++)g.push(k.slice(r*8,r*8+8).split(''));
+ const c=canon(g);return TOT[catOf(c)]?c:null;
+}
+$('idx').addEventListener('click',async e=>{
+ const a=e.target.dataset&&e.target.dataset.act;if(!a)return;
+ const io=$('io'),ta=$('ta'),ion=$('ion');
+ if(a==='exp'){
+  io.hidden=false;$('go').hidden=true;ta.value='P13:'+found.join(',');ta.focus();ta.select();
+  let ok=false;try{await navigator.clipboard.writeText(ta.value);ok=true}catch(err){}
+  ion.textContent=(ok?'Gekopieerd naar je klembord. ':'Selecteer en kopieer de tekst hierboven. ')+'Bewaar hem ergens veilig, bijvoorbeeld in een notitie ('+found.length+' oplossingen).';
+ }else if(a==='imp'){
+  io.hidden=false;$('go').hidden=false;ta.value='';ta.focus();ion.textContent='Plak hierboven de geëxporteerde tekst en tik op Importeer.';
+ }else if(a==='go'){
+  const items=ta.value.match(/[0-9abc]{64}/g)||[];
+  let add=0,bad=0;
+  items.forEach(x=>{const c=validKey(x);if(!c){bad++;return}if(!found.includes(c)){found.push(c);add++}});
+  persist();tabLabel();renderIdx();autoSave();
+  $('ion').textContent=`${add} nieuwe oplossing${add===1?'':'en'} geïmporteerd`+(bad?`, ${bad} ongeldig overgeslagen`:'')+'.';
+ }
+});
+const FSA='showSaveFilePicker' in window;
+let fh=null,dlMode=false;try{dlMode=localStorage.getItem('p904dl')==='1'}catch(e){}
+const idb=(mode,fn)=>new Promise((res,rej)=>{const r=indexedDB.open('p904',1);r.onupgradeneeded=()=>r.result.createObjectStore('k');r.onerror=()=>rej(r.error);
+ r.onsuccess=()=>{const tx=r.result.transaction('k',mode),q=fn(tx.objectStore('k'));tx.oncomplete=()=>res(q&&q.result);tx.onerror=()=>rej(tx.error)}});
+const payload=()=>JSON.stringify({spel:'904 Puzzel',aantal:found.length,index:found},null,1);
+async function writeFile(){
+ if(!fh)return false;
+ try{let p=await fh.queryPermission({mode:'readwrite'});if(p!=='granted')p=await fh.requestPermission({mode:'readwrite'});
+  if(p!=='granted')return false;
+  const w=await fh.createWritable();await w.write(payload());await w.close();return true}catch(e){return false}
+}
+function download(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([payload()],{type:'application/json'}));a.download='904-puzzel-index.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+async function autoSave(){if(fh)return writeFile();if(dlMode){try{download();return true}catch(e){return false}}return null}
+function locStatus(){const e=$('locs');if(e)e.textContent=fh?'Automatisch opslaan naar: '+fh.name:dlMode?'Bij elke nieuwe oplossing wordt een bestand gedownload.':'Nog geen opslaglocatie ingesteld.'}
+const mergeText=t=>{let n=0;(t.match(/[0-9abc]{64}/g)||[]).forEach(x=>{const c=validKey(x);if(c&&!found.includes(c)){found.push(c);n++}});return n};
+$('idx').addEventListener('click',async e=>{
+ const a=e.target.dataset&&e.target.dataset.act,ion=$('ion');
+ if(a==='loc'){
+  try{fh=await showSaveFilePicker({suggestedName:'904-puzzel-index.json',types:[{description:'904 Puzzel index',accept:{'application/json':['.json']}}]});
+   await idb('readwrite',s=>s.put(fh,'fh'));const ok=await writeFile();locStatus();ion.textContent=ok?'Klaar. Elke nieuwe oplossing wordt voortaan automatisch in dit bestand bewaard.':'Locatie gekozen, maar schrijven is niet gelukt.'}
+  catch(err){ion.textContent=err&&err.name==='AbortError'?'':'Een opslaglocatie kiezen kan hier niet. Dit werkt in Chrome of Edge op een computer, op de gepubliceerde pagina zelf.'}
+ }else if(a==='dl'){
+  dlMode=!dlMode;try{localStorage.setItem('p904dl',dlMode?'1':'0')}catch(err){}renderIdx();
+ }
+});
+if(FSA)idb('readonly',s=>s.get('fh')).then(async h=>{if(!h)return;fh=h;
+ try{if(await h.queryPermission({mode:'readwrite'})==='granted'){const n=mergeText(await (await h.getFile()).text());if(n){persist();tabLabel()}}}catch(err){}}).catch(()=>{});
+function tab(i){$('game').hidden=i!==1;$('idx').hidden=i!==2;$('t1').className=i===1?'on':'';$('t2').className=i===2?'on':'';if(i===2)renderIdx()}
+$('t1').onclick=()=>tab(1);$('t2').onclick=()=>tab(2);tabLabel();
+$('sh').onclick=shuffle;$('un').onclick=undo;
+P.forEach(p=>{draw(p);pl.append(p.g)});build();shuffle();
+</script></body></html>
